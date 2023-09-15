@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import org.json.JSONObject;
 
 
 public class HelloController {
@@ -52,16 +53,17 @@ public class HelloController {
             String getUserCity = city.getText().trim();
             if(!getUserCity.equals("")) { // Если данные не пустые
                 // Получаем данные о погоде с сайта openweathermap
-                String output = getUrlContent("https://api.openweathermap.org/data/2.5/weather?q=" + getUserCity + "&appid=47e63ad11aecd316d0d7edd7b2d44fa9");
+                String output = getUrlContent("https://api.openweathermap.org/data/2.5/weather?q=" + getUserCity + "&lang=ru&appid=47e63ad11aecd316d0d7edd7b2d44fa9");
 
                 if (!output.isEmpty()) { // Нет ошибки и такой город есть
-//                    JSONObject obj = new JSONObject(output);
-//                    // Обрабатываем JSON и устанавливаем данные в текстовые надписи
-//                    info_temp.setText("Температура: " + obj.getJSONObject("main").getDouble("temp"));
-//                    info_feel.setText("Ощущается: " + obj.getJSONObject("main").getDouble("feels_like"));
-//                    info_max.setText("Максимум: " + obj.getJSONObject("main").getDouble("temp_max"));
-//                    info_min.setText("Минимум: " + obj.getJSONObject("main").getDouble("temp_min"));
-//                    info_pressure.setText("Давление: " + obj.getJSONObject("main").getDouble("pressure"));
+                    JSONObject obj = new JSONObject(output);
+
+                    // Обрабатываем JSON и устанавливаем данные в текстовые надписи
+                    info_temp.setText("Температура: " + obj.getJSONObject("main").getDouble("temp"));
+                    info_feel.setText("Ощущается: " + obj.getJSONObject("main").getDouble("feels_like"));
+                    info_max.setText("Максимум: " + obj.getJSONObject("main").getDouble("temp_max"));
+                    info_min.setText("Минимум: " + obj.getJSONObject("main").getDouble("temp_min"));
+                    info_pressure.setText("Давление: " + obj.getJSONObject("main").getDouble("pressure"));
                 }
             }
         });
